@@ -1,60 +1,86 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class GameController : MonoBehaviour
+public class GameController : SingletonMonoBehaviour<GameController>
 {
     [SerializeField] private GameObject[] _balls;
     [SerializeField] private Transform _ballParent;
+    [SerializeField] private TextMeshProUGUI _scoreText;
 
     private int _randIndex;
-    private bool _isHad;
+    private bool _isCheck;
+
+    private int _score;
 
     // Start is called before the first frame update
     void Start()
     {
         SpawnNewBall();
+        _isCheck = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        HasBall();
+        _scoreText.text = "Score : " + $"{_score}";
     }
 
     public void SpawnNewBall()
     {
-        _randIndex = Random.Range(0, _balls.Length);
+        _randIndex = Random.Range(0, _balls.Length - 3);
         Instantiate(_balls[_randIndex], _ballParent);
-        _isHad = false;
     }
 
-    public void HasBall()
+    public void BallClassUp(string ballName, Vector3 conflictPosition)
     {
-        if (Input.GetMouseButton(0))
+        if(ballName == "Ball1")
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-            {
-                Debug.Log("”ò‚Î‚µ‚½‚æ");
-                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("balls"))
-                {
-                    hit.collider.transform.position = Input.mousePosition;
-                    Debug.Log("‚Æ‚Á‚½‚æ");
-                }
-            }
-            _isHad = true;
+            Instantiate(_balls[1], conflictPosition, Quaternion.identity, _ballParent);
+            _score += 1;
         }
+        else if (ballName == "Ball2")
+        {
+            Instantiate(_balls[2], conflictPosition, Quaternion.identity, _ballParent);
+            _score += 3;
+        }
+        else if (ballName == "Ball3")
+        {
+            Instantiate(_balls[3], conflictPosition, Quaternion.identity, _ballParent);
+            _score += 7;
+        }
+        else if (ballName == "Ball4")
+        {
+            Instantiate(_balls[4], conflictPosition, Quaternion.identity, _ballParent);
+            _score += 13;
+
+        }
+        else if (ballName == "Ball5")
+        {
+            Instantiate(_balls[5], conflictPosition, Quaternion.identity, _ballParent);
+            _score += 21;
+        }
+        else if (ballName == "Ball6")
+        {
+            _score += 31;
+        }
+    }
+
+    public void CheckOnTrigger()
+    {
+        _isCheck = true;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == LayerMask.NameToLayer("balls"))
+        if (_isCheck == true)
         {
-            SpawnNewBall();
+            if (other.gameObject.layer == LayerMask.NameToLayer("balls"))
+            {
+                SpawnNewBall();
+                _isCheck = false;
+            }
         }
     }
 }
