@@ -707,6 +707,7 @@ MonoBehaviour:
   - {fileID: 8996077777412517779, guid: 6ae29f86231341f4182cd99d2a7fe984, type: 3}
   _ballParent: {fileID: 222726373}
   _scoreText: {fileID: 172990735}
+  _naviGate: {fileID: 1284149768}
 --- !u!4 &609262115
 Transform:
   m_ObjectHideFlags: 0
@@ -1055,7 +1056,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1284149769
 Transform:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class GameController : SingletonMonoBehaviour<GameController>
     [SerializeField] private GameObject[] _balls;
     [SerializeField] private Transform _ballParent;
     [SerializeField] private TextMeshProUGUI _scoreText;
+    [SerializeField] private GameObject _naviGate;
 
     private int _randIndex;
     private bool _isCheck;
@@ -18,6 +19,7 @@ public class GameController : SingletonMonoBehaviour<GameController>
     void Start()
     {
         SpawnNewBall();
+        _naviGate.SetActive(true);
         _isCheck = false;
     }
 
