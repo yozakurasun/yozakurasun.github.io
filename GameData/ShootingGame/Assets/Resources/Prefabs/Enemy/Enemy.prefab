@@ -143,7 +143,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -165,3 +165,4 @@ MonoBehaviour:
   _enemyScore: 1
   _enemyHelth: 1
   _enemySpeed: 3
+  _explosionObject: {fileID: 7141425168459526368, guid: 29a15a93ce798414293bf38e92c0df89, type: 3}

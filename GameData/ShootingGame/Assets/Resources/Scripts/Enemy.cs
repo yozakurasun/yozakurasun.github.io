@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int _enemyHelth = 1;
     [SerializeField] private float _enemySpeed = 1f;
 
+    [SerializeField] private GameObject _explosionObject;
+
     private int _hitIndex = 0;
 
     void Start()
@@ -32,7 +34,7 @@ public class Enemy : MonoBehaviour
         rb.velocity = new Vector2(-_enemySpeed, 0);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
@@ -41,7 +43,7 @@ public class Enemy : MonoBehaviour
 
             if (_enemyName == "Enemy0")
             {
-                if(_hitIndex == _enemyHelth)
+                if (_hitIndex == _enemyHelth)
                 {
                     GameController.Instance.AddScore(_enemyScore);
                     Destroy(this.gameObject);
@@ -55,6 +57,12 @@ public class Enemy : MonoBehaviour
                     Destroy(this.gameObject);
                 }
             }
+        }
+        else if (collision.gameObject.CompareTag("BattleShip"))
+        {
+            Vector3 hitPosition = this.transform.position;
+            Instantiate(_explosionObject, hitPosition, Quaternion.identity);
+            Destroy(this.gameObject);
         }
     }
 }
