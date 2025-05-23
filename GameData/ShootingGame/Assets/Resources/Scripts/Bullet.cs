@@ -49,7 +49,7 @@ public class Bullet : MonoBehaviour
 
     private void BulletMove1()
     {
-        rb.velocity = new Vector2(_bulletSpeed0, _bulletSpeed0 / 2);
+        rb.velocity = new Vector2(_bulletSpeed0, 0);
     }
 
 }

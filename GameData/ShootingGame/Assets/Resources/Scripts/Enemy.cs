@@ -18,8 +18,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int _enemyHelth = 1;
     [SerializeField] private float _enemySpeed = 1f;
 
-    [SerializeField] private GameObject _explosionObject;
-
     private int _hitIndex = 0;
 
     void Start()
@@ -34,10 +32,13 @@ public class Enemy : MonoBehaviour
         rb.velocity = new Vector2(-_enemySpeed, 0);
     }
 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Vector3 hitPosition = this.transform.position;
         if (collision.gameObject.CompareTag("Bullet"))
         {
+            GameController.Instance.HitEffect(hitPosition);
             _hitIndex++;
             Destroy(collision.gameObject);
 
@@ -60,8 +61,12 @@ public class Enemy : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("BattleShip"))
         {
-            Vector3 hitPosition = this.transform.position;
-            Instantiate(_explosionObject, hitPosition, Quaternion.identity);
+            GameController.Instance.GameOver(hitPosition);
+            Destroy(this.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Player"))
+        {
+            GameController.Instance.GameOver(hitPosition);
             Destroy(this.gameObject);
         }
     }
