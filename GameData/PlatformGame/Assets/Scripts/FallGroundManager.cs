@@ -17,15 +17,11 @@ public class FallGroundManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_isFall == true)
+        if (_isFall == true)
         {
-            _rb.gravityScale = 0.5f;
+            _rb.AddForce(new Vector3(0, -5f, 0), ForceMode2D.Force);
         }
 
-        if (transform.position.y <= -20) 
-        {
-            Destroy(gameObject);
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -33,6 +29,14 @@ public class FallGroundManager : MonoBehaviour
         if (collision.gameObject.CompareTag("PlayerLeg"))
         {
             _isFall = true;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("DeadLine"))
+        {
+            Destroy(gameObject);
         }
     }
 }
